@@ -20,7 +20,7 @@ def hello_world(request):
         new_data.text = temp
         new_data.save() # 실제 DB에 저장
 
-        return HttpResponseRedirect(reverse('acccountapp:hello_world')) # 실제 url 주소를 역치환해준다
+        return HttpResponseRedirect(reverse('accountapp:hello_world')) # 실제 url 주소를 역치환해준다
 
         # data_list = HelloWorld.objects.all() # HelloWorld의 객체들을 가져온다
         #
