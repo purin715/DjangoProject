@@ -9,6 +9,7 @@ from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
 
+from accountapp.decorators import account_ownership_required
 from accountapp.forms import AccountCreationForm
 from accountapp.models import HelloWorld
 
@@ -45,9 +46,12 @@ class AccountDetailView(DetailView):
     context_object_name = 'target_user' # html에서 객체를 불러오기 위해
     template_name = 'accountapp/detail.html'
 
+has_ownership = [login_required, account_ownership_required]
 
-@method_decorator(login_required, 'get') # get방식 http에 적용해주겠다
-@method_decorator(login_required, 'post') # post방식 http에 적용해주겠다
+# login이 돼있는지 여부만 판단하여 html을 보여준다
+# login한 유저가 request의 유저와 같은지 여부를 판단하여 html을 보여준다
+@method_decorator(has_ownership, 'get') # get방식 http에 적용해주겠다
+@method_decorator(has_ownership, 'post') # post방식 http에 적용해주겠다
 class AccountUpdateView(UpdateView):
     model = User
     form_class = AccountCreationForm
@@ -56,8 +60,8 @@ class AccountUpdateView(UpdateView):
     template_name = 'accountapp/update.html'
 
 
-@method_decorator(login_required, 'get')
-@method_decorator(login_required, 'post')
+@method_decorator(has_ownership, 'get')
+@method_decorator(has_ownership, 'post')
 class AccountDeleteView(DeleteView):
     model = User
     context_object_name = 'target_user'
