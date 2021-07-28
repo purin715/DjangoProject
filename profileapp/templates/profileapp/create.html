@@ -8,7 +8,8 @@
             <h4>Create Profile</h4>
         </div>
         <div>
-            <form action="{% url 'profileapp:create' %}" method="post">
+            <form action="{% url 'profileapp:create' %}" enctype="multipart/form-data" method="post">
+                {# enctype : 폼 안에 넣는 데이터를 어떤 식으로 인코딩 할거냐, 파일은 문자열 처리하면 안되므로 해줘야 함 #}
                 {% csrf_token %}
                 {% bootstrap_form form %}
                 <div class="m-5">
