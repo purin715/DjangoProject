@@ -6,7 +6,7 @@
     <div class="container">
         <div>
             {# 게시글 제목, 글쓴이, 작성일자 #}
-            <h1>{{ targer_article.title }}</h1>
+            <h1>{{ target_article.title }}</h1>
             <h4>{{ target_article.writer.profile.nickname }}</h4>
             <p>{{ target_article.created_at }}</p>
         </div>
@@ -14,6 +14,12 @@
             {# 게시글 내용, 게시글 대표 이미지 #}
             <img src="{{ target_article.image.url }}" alt="">
             {{ target_article.content }}
+            <div>
+                <a href="{% url 'articleapp:update' pk=target_article.pk %}"
+                CLASS="btn btn-success rounded-pill px-5">
+                    Update
+                </a>
+            </div>
         </div>
     </div>
 
