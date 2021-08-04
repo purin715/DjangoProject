@@ -29,8 +29,8 @@ class ProfileCreateView(CreateView):
 @method_decorator(profile_ownership_required, 'post')
 class ProfileUpdateView(UpdateView):
     model = Profile
-    context_object_name = 'target_profile'
     form_class = ProfileCreationForm
+    context_object_name = 'target_profile'
     template_name = 'profileapp/update.html'
 
     # 클래스 자체에서는 pk값을 넘겨줄 수 없다 따라서 동적으로 넘겨줄 함수를 오버라이딩
