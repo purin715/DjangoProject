@@ -288,7 +288,7 @@ magicGrid.listen();
 // getElementsByTagName: element들을 태그 이름으로 가져옴
 var masonrys = document.getElementsByTagName("img")
 
-for (let i =0; masonrys.length; i++) {
+for (let i =0; i < masonrys.length; i++) {
   masonrys[i].addEventListener('load', function () {
     magicGrid.positionItems(); // 각각의 이미지가 로드될 때마다 수동으로 재배치를 시키는거야
   }, false)

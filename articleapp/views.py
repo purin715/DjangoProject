@@ -25,7 +25,7 @@ class ArticleCreateView(CreateView):
     def get_success_url(self):
         return reverse('articleapp:detail', kwargs={'pk': self.object.pk})
 
-
+# detail 뷰에서는 뭔가를 작성해서 보내지 않기 때문에 decorator를 post 방식일 때 써주면 안됨
 class ArticleDetailView(DetailView):
     model = Article
     context_object_name = 'target_article'
