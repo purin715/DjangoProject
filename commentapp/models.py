@@ -14,6 +14,6 @@ class Comment(models.Model): # 일대다이므로 forienkey로 연결
                                on_delete=models.SET_NULL,
                                related_name='comment',
                                null=True)
-    comment = models.TextField(null=False)
+    content = models.TextField(null=False)
 
     created_at = models.DateTimeField(auto_now=True)
