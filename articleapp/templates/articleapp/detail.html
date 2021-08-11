@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
 
+
 {% block content %}
 
 
     <div class="container text-center">
-        <div class = "my-5">
+        <div class="my-5">
             {# 게시글 제목, 글쓴이, 작성일자 #}
             <h1 class="NNS_B">{{ target_article.title }}</h1>
             <h4>{{ target_article.writer.profile.nickname }}</h4>
@@ -24,47 +25,49 @@
             {% if target_article.writer == user %}
             <div>
                 <a href="{% url 'articleapp:update' pk=target_article.pk %}"
-                CLASS="btn btn-success rounded-pill px-5">
+                   class="btn btn-success rounded-pill px-5">
                     Update
                 </a>
                 <a href="{% url 'articleapp:delete' pk=target_article.pk %}"
-                CLASS="btn btn-danger rounded-pill px-5">
+                   class="btn btn-danger rounded-pill px-5">
                     Delete
                 </a>
             </div>
             {% endif %}
+        </div>
 
-            <hr>
+        <hr>
 
-            <div class="text-center my-4">
-                {# 댓글 작성 및 댓글 #}
-                {# models.py에 article을 related_name=comment로 설정해놨기 때문 #}
-                {% for comment in target_article.comment.all %}
+        <div class="text-center my-4">
+            {# 댓글 작성 폼 및 댓글 #}
+            {# models.py에 article을 related_name=comment로 설정해놨기 때문 #}
+            {% for comment in target_article.comment.all %}
 
-                    <div style="text-align: left;
-                                border: solid;
-                                border-color: #d0d0d0;
-                                padding: 1rem;
-                                border-radius: 1rem;
-                                margin: 1rem;">
-                        <div>
-                            <span class="NNS_B" style="font-size: 1.4rem;">
-                                {{ comment.writer.profile.nickname }}
-                            </span>
-                            <span>{{ comment.created_at }}</span>
-                        </div>
-                        <div>
-                            <p>
-                                {{ comment.content }}
-                            </p>
-                        </div>
+                <div class="comment_box">
+                    <div>
+                        <span class="NNS_B" style="font-size: 1.4rem;">
+                            {{ comment.writer.profile.nickname }}
+                        </span>
+                        <span>{{ comment.created_at }}</span>
                     </div>
+                    <div>
+                        <p>
+                            {{ comment.content }}
+                        </p>
+                    </div>
+                    {% if comment.writer == user %}
+                    <div style="text-align: right">
+                        <a href="{% url 'commentapp:delete' pk=comment.pk %}"
+                            class="btn btn-danger rounded-pill px-5 ">
+                            Delete
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
 
-                {% endfor %}
+            {% endfor %}
 
-
-                {% include 'commentapp/create.html' %}
-            </div>
+            {% include 'commentapp/create.html' %}
         </div>
     </div>
 
