@@ -38,6 +38,31 @@
 
             <div class="text-center my-4">
                 {# 댓글 작성 및 댓글 #}
+                {# models.py에 article을 related_name=comment로 설정해놨기 때문 #}
+                {% for comment in target_article.comment.all %}
+
+                    <div style="text-align: left;
+                                border: solid;
+                                border-color: #d0d0d0;
+                                padding: 1rem;
+                                border-radius: 1rem;
+                                margin: 1rem;">
+                        <div>
+                            <span class="NNS_B" style="font-size: 1.4rem;">
+                                {{ comment.writer.profile.nickname }}
+                            </span>
+                            <span>{{ comment.created_at }}</span>
+                        </div>
+                        <div>
+                            <p>
+                                {{ comment.content }}
+                            </p>
+                        </div>
+                    </div>
+
+                {% endfor %}
+
+
                 {% include 'commentapp/create.html' %}
             </div>
         </div>
