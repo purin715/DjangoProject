@@ -31,8 +31,9 @@ class ProjectDetailView(DetailView, MultipleObjectMixin):
     paginate_by = 20 # MultipleObjectMixin을 상속받았기에 쓸 수 있는 것
 
     def get_context_data(self, **kwargs): # MultipleObjectMixin을 상속받았기에 쓸 수 있는 것
-        article_list = Article.objects.filter() # 조건에 맞는 것만 필터링하겠다
-        return super().get_context_data(**kwargs)
+        article_list = Article.objects.filter(project=self.object) # 조건에 맞는 것만 필터링하겠다
+        return super().get_context_data(object_list= article_list,
+                                        **kwargs)
 
 
 class ProjectListView(ListView):
