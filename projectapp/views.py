@@ -10,6 +10,7 @@ from django.views.generic.list import MultipleObjectMixin
 from articleapp.models import Article
 from projectapp.forms import ProjectCreationForm
 from projectapp.models import Project
+from subscribeapp.models import Subscription
 
 
 @method_decorator(login_required, 'get')
@@ -31,8 +32,19 @@ class ProjectDetailView(DetailView, MultipleObjectMixin):
     paginate_by = 20 # MultipleObjectMixin을 상속받았기에 쓸 수 있는 것
 
     def get_context_data(self, **kwargs): # MultipleObjectMixin을 상속받았기에 쓸 수 있는 것
+        user = self.request.user
+        project = self.object # 보고있는 프로젝트(target_project)
+
+        if user.is_authenticated:
+            subscription = Subscription.objects.filter(user=user,
+                                                       project=project)
+        else:
+            subscription = None
+
         article_list = Article.objects.filter(project=self.object) # 조건에 맞는 것만 필터링하겠다
+
         return super().get_context_data(object_list=article_list,
+                                        subscription=subscription,
                                         **kwargs)
 
 
