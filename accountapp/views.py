@@ -16,25 +16,25 @@ from accountapp.models import HelloWorld
 from articleapp.models import Article
 
 
-@login_required()
-def hello_world(request):
-    # 라우팅 해줘야 해 (연결)
-    # 메인 앱에서 먼저 받고 여기로 보냄
-    if request.method == "POST":
-
-        temp = request.POST.get('input')
-
-        new_data = HelloWorld()
-        new_data.text = temp
-        new_data.save() # 실제 DB에 저장
-
-        return HttpResponseRedirect(reverse('accountapp:hello_world')) # 실제 url 주소를 역치환해준다
-
-        # data_list = HelloWorld.objects.all() # HelloWorld의 객체들을 가져온다
-        # return render(request, 'accountapp/hello_world.html', context={'data_list' : data_list})
-    else:
-        data_list = HelloWorld.objects.all()
-        return render(request, 'accountapp/hello_world.html', context={'data_list' : data_list})
+# @login_required()
+# def hello_world(request):
+#     # 라우팅 해줘야 해 (연결)
+#     # 메인 앱에서 먼저 받고 여기로 보냄
+#     if request.method == "POST":
+#
+#         temp = request.POST.get('input')
+#
+#         new_data = HelloWorld()
+#         new_data.text = temp
+#         new_data.save() # 실제 DB에 저장
+#
+#         return HttpResponseRedirect(reverse('articleapp:list')) # 실제 url 주소를 역치환해준다
+#
+#         # data_list = HelloWorld.objects.all() # HelloWorld의 객체들을 가져온다
+#         # return render(request, 'accountapp/hello_world.html', context={'data_list' : data_list})
+#     else:
+#         data_list = HelloWorld.objects.all()
+#         return render(request, 'accountapp/hello_world.html', context={'data_list' : data_list})
 
 
 class AccountCreateView(CreateView):
@@ -78,5 +78,5 @@ class AccountUpdateView(UpdateView):
 class AccountDeleteView(DeleteView):
     model = User
     context_object_name = 'target_user'
-    success_url = reverse_lazy('accountapp:hello_world')
+    success_url = reverse_lazy('articleapp:list')
     template_name = 'accountapp/delete.html'
