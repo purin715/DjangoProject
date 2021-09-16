@@ -1,0 +1,41 @@
+version: "3.7"
+services:
+
+  nginx:
+    image: nginx:1.19.5
+    networks:
+      - django_network
+    volumes:
+      - django_media:/data/media/
+      - django_static:/data/static/
+      - /home/ubuntu/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - 80:80
+
+  django:
+    image: test_image:4
+    networks:
+      - django_network
+    volumes:
+      - django_media:/home/DjangoProject/mediafiles/
+      - django_static:/home/DjangoProject/staticfiles/
+
+  mariadb:
+    image: mariadb:10.5
+    networks:
+      - django_network
+    volumes:
+      - django_mariadb:/var/lib/mysql
+    environment:
+      MARIADB_DATABASE: django
+      MARIADB_USER: django
+      MARIADB_PASSWORD: password1234
+      MARIADB_ROOT_PASSWORD: password1234
+
+networks:
+  django_network:
+
+volumes:
+  django_media:
+  django_static:
+  django_mariadb:
