@@ -16,6 +16,8 @@ services:
     image: test_image:4
     networks:
       - django_network
+    secrets:
+      - DJANGO_SECRET_KEY
     volumes:
       - django_media:/home/DjangoProject/mediafiles/
       - django_static:/home/DjangoProject/staticfiles/
@@ -39,3 +41,7 @@ volumes:
   django_media:
   django_static:
   django_mariadb:
+
+secrets:
+  DJANGO_SECRET_KEY:
+    external: true
