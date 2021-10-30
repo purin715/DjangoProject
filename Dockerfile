@@ -2,7 +2,7 @@ FROM python:3.9.0
 
 WORKDIR /home/
 
-RUN echo 'FDSFASDF'
+RUN echo 'testaa'
 
 RUN git clone https://github.com/purin715/DjangoProject.git
 
